@@ -11,25 +11,21 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .container {
       background-color: #ffffff;
       padding: 30px;
-      padding-bottom: 0; /* Elimina el margen interior de abajo */
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 500px;
       width: 90%;
       margin: 0 auto;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      height: auto; /* Cambiado a auto para adaptarse al contenido */
       transition: transform 0.3s ease;
     }
     .container:hover {
@@ -145,22 +141,19 @@
       color: #e53935;
     }
 
-    /* Ajustes para pantallas pequeñas */
     @media (max-width: 600px) {
       .form-row {
-        flex-direction: row;  /* Mantener los elementos en la misma fila */
-        justify-content: space-between;  /* Espaciado entre las etiquetas y los inputs */
-        align-items: center;  /* Alineación centrada */
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 6px;
       }
-      
       label {
-        width: 140px;  /* Asegurarse de que la etiqueta tenga un tamaño adecuado */
+        width: 140px;
       }
-
       input[type="text"],
       input[type="number"] {
-        width: calc(100% - 150px);  /* Ajustar el tamaño de los inputs en móviles */
+        width: calc(100% - 150px);
       }
     }
 
@@ -196,7 +189,7 @@
         <input type="number" id="separadores" step="1" min="0" />
       </div>
       <div class="form-row">
-        <label for="resultado">Resultado:</label>
+        <label for="resultado">Monto Final:</label>
         <input type="text" id="resultado" readonly />
       </div>
       <div class="form-row">
@@ -228,15 +221,11 @@
     let selectedOption = null;
 
     function updateOutput() {
-      const colegio = document.getElementById('colegio').value || '[Colegio]';
-      let facturado = parseFloat(facturadoInput.value) || 0;
-      let separadores = parseInt(separadoresInput.value) || 0;
-
-      let resultado = facturado - separadores;
-      resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
-
-      let porcentaje = resultado * 0.05;
-      porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
+      const colegio = document.getElementById('colegio').value;
+      const facturado = facturadoInput.value;
+      const separadores = separadoresInput.value;
+      const resultado = resultadoInput.value;
+      const porcentaje = porcentajeInput.value;
 
       let extraLine = '';
       if (selectedOption === 'dana') {
@@ -245,19 +234,28 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      output.innerHTML = ` 
-        <ul>
-          <li>Colegio: <strong>${colegio}</strong></li>
-          <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
-          <li>Separadores: <strong>${separadoresInput.value || '[Separadores]'}</strong></li>
-          <li>Resultado: <strong>${resultadoInput.value || '[Resultado]'}</strong>€</li>
-          <li>5% del resultado: <strong>${porcentajeInput.value || '[Porcentaje]'}</strong>€</li>
-          ${extraLine}
-        </ul>
-      `;
+      let listItems = '';
+      if (colegio) listItems += `<li>Colegio: <strong>${colegio}</strong></li>`;
+      if (facturado) listItems += `<li>Ha facturado: <strong>${facturado}</strong>€</li>`;
+      if (separadores) listItems += `<li>Separadores: <strong>${separadores}</strong></li>`;
+      if (resultado) listItems += `<li>Monto Final: <strong>${resultado}</strong>€</li>`;
+      if (porcentaje) listItems += `<li>5% del monto final: <strong>${porcentaje}</strong>€</li>`;
+
+      output.innerHTML = listItems || 'Introduce los datos en los campos para ver el resultado.';
+      if (listItems) {
+        output.innerHTML = `<ul>${listItems}${extraLine}</ul>`;
+      }
     }
 
-    form.addEventListener('input', updateOutput);
+    form.addEventListener('input', () => {
+      const facturado = parseFloat(facturadoInput.value) || 0;
+      const separadores = parseInt(separadoresInput.value) || 0;
+      const resultado = facturado - separadores;
+      resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
+      const porcentaje = resultado * 0.05;
+      porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
+      updateOutput();
+    });
 
     function selectOption(option) {
       selectedOption = option;
@@ -265,20 +263,26 @@
     }
 
     function copyText() {
-      const colegio = document.getElementById('colegio').value || '[Colegio]';
-      const facturado = facturadoInput.value || '[Facturado]';
-      const separadores = separadoresInput.value || '[Separadores]';
-      const resultado = resultadoInput.value || '[Resultado]';
-      const porcentaje = porcentajeInput.value || '[Porcentaje]';
+      const colegio = document.getElementById('colegio').value;
+      const facturado = facturadoInput.value;
+      const separadores = separadoresInput.value;
+      const resultado = resultadoInput.value;
+      const porcentaje = porcentajeInput.value;
 
-      let extraLine = '';
+      let lines = [];
+      if (colegio) lines.push(`Colegio: ${colegio}`);
+      if (facturado) lines.push(`Ha facturado: ${facturado}€`);
+      if (separadores) lines.push(`Separadores: ${separadores}`);
+      if (resultado) lines.push(`Monto Final: ${resultado}€`);
+      if (porcentaje) lines.push(`5% del monto final: ${porcentaje}€`);
+
       if (selectedOption === 'dana') {
-        extraLine = '💧 Donado a colegios afectados por DANA';
+        lines.push('💧 Donado a colegios afectados por DANA');
       } else if (selectedOption === 'cole') {
-        extraLine = '🎓 Destinado al bono del cole';
+        lines.push('🎓 Destinado al bono del cole');
       }
 
-      const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
+      const textToCopy = lines.join('\n');
 
       if (navigator.clipboard) {
         navigator.clipboard.writeText(textToCopy).then(() => {
