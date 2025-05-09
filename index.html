@@ -7,10 +7,9 @@
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background: #ffffff; /* Fondo blanco para la caja */
+      background: #ffffff; /* Cambiar fondo azul a blanco */
       margin: 0;
       height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
-      overflow-x: hidden; /* Previene el deslizamiento horizontal */
     }
     .container {
       background-color: #ffffff; /* Fondo blanco para la caja */
@@ -18,9 +17,9 @@
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       text-align: center;
-      width: 100%;
-      max-width: 500px; /* Limita el ancho de la caja */
-      margin: 0 auto; /* Centra la caja en la pantalla */
+      max-width: 500px;
+      width: 90%;
+      margin: 0; /* Elimina el margen para que ocupe todo el espacio disponible */
       height: 100%; /* Hace que la caja ocupe toda la altura disponible */
       display: flex;
       flex-direction: column;
@@ -310,12 +309,4 @@
       }
     }
 
-    function showMessage(messageElement) {
-      messageElement.style.display = 'block';
-      setTimeout(() => {
-        messageElement.style.display = 'none';
-      }, 2000);
-    }
-  </script>
-</body>
-</html>
+    function showMessage
