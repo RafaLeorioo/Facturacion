@@ -80,6 +80,7 @@
             width: 100%;
             max-width: 200px;
             font-size: 14px;
+            box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
         input[type="text"]:focus {
@@ -94,6 +95,8 @@
             color: #555;
             font-size: 14px;
             font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
         }
         .output {
             margin-top: 25px;
@@ -120,6 +123,7 @@
             font-size: 14px;
             font-weight: 500;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            touch-action: manipulation;
         }
         button:hover {
             background-color: #45a049;
@@ -157,16 +161,59 @@
         .error {
             color: #e53935;
         }
-        @media (max-width: 400px) {
+        /* Mejoras para dispositivos móviles */
+        @media (max-width: 600px) {
             .container {
                 padding: 20px;
+                margin: 10px;
+            }
+            h2 {
+                font-size: 20px;
             }
             input[type="text"] {
                 max-width: 100%;
+                font-size: 13px;
+            }
+            label {
+                font-size: 13px;
+            }
+            .output {
+                font-size: 14px;
+            }
+            .output li {
+                font-size: 13px;
+            }
+            button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .option-buttons {
+                flex-direction: row;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            input[type="text"] {
+                padding: 8px;
             }
             .option-buttons {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
+            }
+            .option-buttons button {
+                width: 100%;
+                max-width: 150px;
+            }
+            button {
+                width: 100%;
+                max-width: 150px;
             }
         }
     </style>
@@ -265,7 +312,7 @@
                 extraLine = '🎓 Destinado al bono del cole';
             }
 
-            const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSegunda: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
+            const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
 
             // Intentar usar navigator.clipboard
             if (navigator.clipboard) {
