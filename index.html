@@ -42,9 +42,9 @@
     }
     .form-row {
       display: flex;
-      justify-content: flex-start;  /* Cambiado para alineación a la izquierda */
+      justify-content: flex-start;  /* Alineación a la izquierda */
       align-items: center;
-      margin-bottom: 6px;  /* Reducido el espacio entre filas */
+      margin-bottom: 6px;  /* Reducir el espacio entre filas */
       width: 100%;
     }
     label {
@@ -53,7 +53,7 @@
       font-weight: 500;
       width: 130px;
       text-align: right;
-      padding-right: 5px;  /* Reducido el espacio entre el label y el input */
+      padding-right: 5px;  /* Reducir el espacio entre el label y el input */
     }
     input[type="text"],
     input[type="number"] {
@@ -142,40 +142,27 @@
       color: #e53935;
     }
 
+    /* Ajustes para pantallas pequeñas */
     @media (max-width: 600px) {
-      .container {
-        padding: 20px;
-        margin: 10px;
-      }
-      h2 {
-        font-size: 20px;
-      }
       .form-row {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
+        flex-direction: column;  /* Colocar las etiquetas y los inputs en columna */
+        align-items: flex-start;  /* Alineación a la izquierda */
+        margin-bottom: 10px;  /* Ajustar el espacio entre filas */
       }
-      .form-row label {
-        width: 120px;
-        font-size: 13px;
-        text-align: right;
-        padding-right: 10px;
+      
+      label {
+        width: 100%;  /* Que las etiquetas ocupen el 100% del contenedor */
+        text-align: left;
+        padding-right: 0;  /* Eliminar el espacio extra */
+        margin-bottom: 5px;  /* Agregar un poco de espacio debajo de la etiqueta */
       }
+
       input[type="text"],
       input[type="number"] {
-        max-width: 150px;
-        font-size: 13px;
-      }
-      button {
-        padding: 8px 16px;
-        font-size: 13px;
-      }
-      .option-buttons {
-        gap: 8px;
-        flex-wrap: wrap;
+        max-width: 100%;  /* Los inputs ocupan todo el ancho disponible */
       }
     }
+
     @media (max-width: 400px) {
       .container {
         padding: 15px;
@@ -257,7 +244,7 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      output.innerHTML = `
+      output.innerHTML = ` 
         <ul>
           <li>Colegio: <strong>${colegio}</strong></li>
           <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
