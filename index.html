@@ -42,9 +42,9 @@
     }
     .form-row {
       display: flex;
-      justify-content: flex-start;  /* Alineación a la izquierda */
+      justify-content: flex-start;
       align-items: center;
-      margin-bottom: 6px;  /* Reducir el espacio entre filas */
+      margin-bottom: 6px;
       width: 100%;
     }
     label {
@@ -53,7 +53,7 @@
       font-weight: 500;
       width: 130px;
       text-align: right;
-      padding-right: 5px;  /* Reducir el espacio entre el label y el input */
+      padding-right: 5px;
     }
     input[type="text"],
     input[type="number"] {
@@ -65,7 +65,6 @@
       font-size: 14px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
-      text-align: left;
     }
     input[type="text"]:focus,
     input[type="number"]:focus {
@@ -145,21 +144,19 @@
     /* Ajustes para pantallas pequeñas */
     @media (max-width: 600px) {
       .form-row {
-        flex-direction: column;  /* Colocar las etiquetas y los inputs en columna */
-        align-items: flex-start;  /* Alineación a la izquierda */
-        margin-bottom: 10px;  /* Ajustar el espacio entre filas */
+        flex-direction: row;  /* Mantener los elementos en la misma fila */
+        justify-content: space-between;  /* Espaciado entre las etiquetas y los inputs */
+        align-items: center;  /* Alineación centrada */
+        margin-bottom: 6px;
       }
       
       label {
-        width: 100%;  /* Que las etiquetas ocupen el 100% del contenedor */
-        text-align: left;
-        padding-right: 0;  /* Eliminar el espacio extra */
-        margin-bottom: 5px;  /* Agregar un poco de espacio debajo de la etiqueta */
+        width: 140px;  /* Asegurarse de que la etiqueta tenga un tamaño adecuado */
       }
 
       input[type="text"],
       input[type="number"] {
-        max-width: 100%;  /* Los inputs ocupan todo el ancho disponible */
+        width: calc(100% - 150px);  /* Ajustar el tamaño de los inputs en móviles */
       }
     }
 
