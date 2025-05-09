@@ -13,7 +13,7 @@
     }
     .container {
       background-color: #ffffff; /* Fondo blanco para la caja */
-      padding: 30px;
+      padding: 0 30px 30px 30px; /* Elimina el padding superior y mantiene los otros */
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -244,7 +244,7 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      output.innerHTML = `
+      output.innerHTML = `  
         <ul>
           <li>Colegio: <strong>${colegio}</strong></li>
           <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
@@ -309,4 +309,12 @@
       }
     }
 
-    function showMessage
+    function showMessage(messageElement) {
+      messageElement.style.display = 'block';
+      setTimeout(() => {
+        messageElement.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
