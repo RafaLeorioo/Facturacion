@@ -221,13 +221,7 @@
     const errorMessage = document.getElementById('errorMessage');
     let selectedOption = null;
 
-    facturadoInput.addEventListener('input', () => {
-      facturadoInput.value = facturadoInput.value.replace(/[^0-9.]/g, '');
-    });
-    separadoresInput.addEventListener('input', () => {
-      separadoresInput.value = separadoresInput.value.replace(/[^0-9]/g, '');
-    });
-
+    // Función para actualizar los resultados
     function updateOutput() {
       const colegio = document.getElementById('colegio').value || '[Colegio]';
       let facturado = parseFloat(facturadoInput.value) || 0;
@@ -258,13 +252,14 @@
       `;
     }
 
-    form.addEventListener('input', updateOutput);
+    form.addEventListener('input', updateOutput); // Actualiza el output en cada cambio del formulario
 
     function selectOption(option) {
       selectedOption = option;
       updateOutput();
     }
 
+    // Función para copiar el texto
     function copyText() {
       const colegio = document.getElementById('colegio').value || '[Colegio]';
       const facturado = facturadoInput.value || '[Facturado]';
@@ -316,3 +311,10 @@
       setTimeout(() => {
         messageElement.style.display = 'none';
       }, 2000);
+    }
+
+    // Asegurarse de que la salida se actualice al cargar la página
+    updateOutput();
+  </script>
+</body>
+</html>
