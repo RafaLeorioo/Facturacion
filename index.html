@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +35,7 @@
         }
         input[type="text"], input[type="number"] {
             padding: 10px;
-            margin: 4px 0; /* Reducido de 8px a 4px */
+            margin: 2px 0; /* Márgenes reducidos */
             border: 1px solid #ddd;
             border-radius: 6px;
             width: 100%;
@@ -161,7 +122,6 @@
         .error {
             color: #e53935;
         }
-        /* Mejoras para dispositivos móviles */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -173,7 +133,7 @@
             input[type="text"], input[type="number"] {
                 max-width: 100%;
                 font-size: 13px;
-                margin: 2px 0; /* Reducido a 2px en móviles */
+                margin: 1px 0; /* Márgenes aún más reducidos en móviles */
             }
             label {
                 font-size: 13px;
@@ -203,7 +163,7 @@
             }
             input[type="text"], input[type="number"] {
                 padding: 8px;
-                margin: 2px 0;
+                margin: 1px 0;
             }
             .option-buttons {
                 flex-direction: column;
@@ -259,7 +219,6 @@
         const errorMessage = document.getElementById('errorMessage');
         let selectedOption = null;
 
-        // Validar que solo se ingresen números en facturado y separadores
         facturadoInput.addEventListener('input', () => {
             facturadoInput.value = facturadoInput.value.replace(/[^0-9.]/g, '');
         });
@@ -272,15 +231,12 @@
             let facturado = parseFloat(facturadoInput.value) || 0;
             let separadores = parseInt(separadoresInput.value) || 0;
 
-            // Calcular resultado (facturado - separadores)
             let resultado = facturado - separadores;
             resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
 
-            // Calcular 5% del resultado
             let porcentaje = resultado * 0.05;
             porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
 
-            // Generar lista con línea adicional si hay opción seleccionada
             let extraLine = '';
             if (selectedOption === 'dana') {
                 extraLine = '<li class="extra-line dana">💧 Donado a colegios afectados por DANA</li>';
@@ -314,7 +270,6 @@
             const resultado = resultadoInput.value || '[Resultado]';
             const porcentaje = porcentajeInput.value || '[Porcentaje]';
 
-            // Formato del texto para copiar como lista con línea adicional
             let extraLine = '';
             if (selectedOption === 'dana') {
                 extraLine = '💧 Donado a colegios afectados por DANA';
@@ -324,7 +279,6 @@
 
             const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
 
-            // Intentar usar navigator.clipboard
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     showMessage(copiedMessage);
@@ -333,7 +287,6 @@
                     fallbackCopyText(textToCopy);
                 });
             } else {
-                // Método alternativo si navigator.clipboard no está disponible
                 fallbackCopyText(textToCopy);
             }
         }
