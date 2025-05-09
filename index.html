@@ -37,21 +37,21 @@
       font-size: 24px;
       font-weight: 500;
     }
+    form {
+      width: 100%;
+    }
     .form-row {
       display: flex;
-      flex-direction: row;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      align-items: center;
+      margin-bottom: 12px;
       width: 100%;
-      max-width: 300px;
     }
-    .form-row label {
-      width: 120px;
-      margin-bottom: 0;
+    label {
       color: #555;
       font-size: 14px;
       font-weight: 500;
+      width: 130px;
       text-align: left;
     }
     input[type="text"],
@@ -60,7 +60,7 @@
       border: 1px solid #ddd;
       border-radius: 6px;
       width: 100%;
-      max-width: 150px;
+      max-width: 200px;
       font-size: 14px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
@@ -148,19 +148,19 @@
         font-size: 20px;
       }
       .form-row {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
       }
       .form-row label {
-        width: 100%;
-        text-align: left;
-        margin-bottom: 4px;
+        width: 120px;
+        font-size: 13px;
       }
       input[type="text"],
       input[type="number"] {
-        max-width: 100%;
+        max-width: 150px;
         font-size: 13px;
-        margin: 1px 0;
       }
       button {
         padding: 8px 16px;
@@ -168,6 +168,19 @@
       }
       .option-buttons {
         gap: 8px;
+        flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 400px) {
+      .container {
+        padding: 15px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      .option-buttons button,
+      button {
+        max-width: 150px;
       }
     }
   </style>
@@ -239,7 +252,7 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      output.innerHTML = `  
+      output.innerHTML = `
         <ul>
           <li>Colegio: <strong>${colegio}</strong></li>
           <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
