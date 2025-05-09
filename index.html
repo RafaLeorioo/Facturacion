@@ -10,7 +10,8 @@
       background: #ffffff;
       margin: 0;
       padding: 0;
-      height: 100vh;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     .container {
       background-color: #ffffff;
@@ -21,7 +22,6 @@
       max-width: 500px;
       width: 90%;
       margin: 0 auto;
-      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -141,6 +141,7 @@
       color: #e53935;
     }
 
+    /* Ajustes para pantallas pequeñas */
     @media (max-width: 600px) {
       .form-row {
         flex-direction: row;
@@ -222,10 +223,14 @@
 
     function updateOutput() {
       const colegio = document.getElementById('colegio').value;
-      const facturado = facturadoInput.value;
-      const separadores = separadoresInput.value;
-      const resultado = resultadoInput.value;
-      const porcentaje = porcentajeInput.value;
+      let facturado = parseFloat(facturadoInput.value) || 0;
+      let separadores = parseInt(separadoresInput.value) || 0;
+
+      let resultado = facturado - separadores;
+      resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
+
+      let porcentaje = resultado * 0.05;
+      porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
 
       let extraLine = '';
       if (selectedOption === 'dana') {
@@ -234,28 +239,19 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      let listItems = '';
-      if (colegio) listItems += `<li>Colegio: <strong>${colegio}</strong></li>`;
-      if (facturado) listItems += `<li>Ha facturado: <strong>${facturado}</strong>€</li>`;
-      if (separadores) listItems += `<li>Separadores: <strong>${separadores}</strong></li>`;
-      if (resultado) listItems += `<li>Monto Final: <strong>${resultado}</strong>€</li>`;
-      if (porcentaje) listItems += `<li>5% del monto final: <strong>${porcentaje}</strong>€</li>`;
-
-      output.innerHTML = listItems || 'Introduce los datos en los campos para ver el resultado.';
-      if (listItems) {
-        output.innerHTML = `<ul>${listItems}${extraLine}</ul>`;
-      }
+      output.innerHTML = `
+        <ul>
+          ${colegio ? `<li>Colegio: <strong>${colegio}</strong></li>` : ''}
+          ${facturadoInput.value ? `<li>Ha facturado: <strong>${facturadoInput.value}</strong>€</li>` : ''}
+          ${separadoresInput.value ? `<li>Separadores: <strong>${separadoresInput.value}</strong></li>` : ''}
+          ${resultadoInput.value ? `<li>Monto Final: <strong>${resultadoInput.value}</strong>€</li>` : ''}
+          ${porcentajeInput.value ? `<li>5% del monto final: <strong>${porcentajeInput.value}</strong>€</li>` : ''}
+          ${extraLine}
+        </ul>
+      `;
     }
 
-    form.addEventListener('input', () => {
-      const facturado = parseFloat(facturadoInput.value) || 0;
-      const separadores = parseInt(separadoresInput.value) || 0;
-      const resultado = facturado - separadores;
-      resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
-      const porcentaje = resultado * 0.05;
-      porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
-      updateOutput();
-    });
+    form.addEventListener('input', updateOutput);
 
     function selectOption(option) {
       selectedOption = option;
@@ -269,23 +265,23 @@
       const resultado = resultadoInput.value;
       const porcentaje = porcentajeInput.value;
 
-      let lines = [];
-      if (colegio) lines.push(`Colegio: ${colegio}`);
-      if (facturado) lines.push(`Ha facturado: ${facturado}€`);
-      if (separadores) lines.push(`Separadores: ${separadores}`);
-      if (resultado) lines.push(`Monto Final: ${resultado}€`);
-      if (porcentaje) lines.push(`5% del monto final: ${porcentaje}€`);
-
+      let extraLine = '';
       if (selectedOption === 'dana') {
-        lines.push('💧 Donado a colegios afectados por DANA');
+        extraLine = '💧 Donado a colegios afectados por DANA';
       } else if (selectedOption === 'cole') {
-        lines.push('🎓 Destinado al bono del cole');
+        extraLine = '🎓 Destinado al bono del cole';
       }
 
-      const textToCopy = lines.join('\n');
+      let textToCopy = '';
+      if (colegio) textToCopy += `Colegio: ${colegio}\n`;
+      if (facturado) textToCopy += `Ha facturado: ${facturado}€\n`;
+      if (separadores) textToCopy += `Separadores: ${separadores}\n`;
+      if (resultado) textToCopy += `Monto Final: ${resultado}€\n`;
+      if (porcentaje) textToCopy += `5% del monto final: ${porcentaje}€\n`;
+      if (extraLine) textToCopy += `${extraLine}`;
 
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(textToCopy).then(() => {
+        navigator.clipboard.writeText(textToCopy.trim()).then(() => {
           showMessage(copiedMessage);
         }).catch(err => {
           console.error('Error al copiar con navigator.clipboard: ', err);
