@@ -52,7 +52,8 @@
       font-size: 14px;
       font-weight: 500;
       width: 130px;
-      text-align: left;
+      text-align: right; /* ← Aquí el cambio importante */
+      padding-right: 10px;
     }
     input[type="text"],
     input[type="number"] {
@@ -64,6 +65,7 @@
       font-size: 14px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
+      text-align: left; /* ← Esto asegura que el texto en el input empiece a la izquierda */
     }
     input[type="text"]:focus,
     input[type="number"]:focus {
@@ -139,6 +141,7 @@
     .error {
       color: #e53935;
     }
+
     @media (max-width: 600px) {
       .container {
         padding: 20px;
@@ -156,6 +159,8 @@
       .form-row label {
         width: 120px;
         font-size: 13px;
+        text-align: right;
+        padding-right: 10px;
       }
       input[type="text"],
       input[type="number"] {
