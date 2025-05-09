@@ -42,9 +42,9 @@
     }
     .form-row {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;  /* Cambiado para alineación a la izquierda */
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 6px;  /* Reducido el espacio entre filas */
       width: 100%;
     }
     label {
@@ -52,8 +52,8 @@
       font-size: 14px;
       font-weight: 500;
       width: 130px;
-      text-align: right; /* ← Aquí el cambio importante */
-      padding-right: 10px;
+      text-align: right;
+      padding-right: 5px;  /* Reducido el espacio entre el label y el input */
     }
     input[type="text"],
     input[type="number"] {
@@ -65,7 +65,7 @@
       font-size: 14px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
-      text-align: left; /* ← Esto asegura que el texto en el input empiece a la izquierda */
+      text-align: left;
     }
     input[type="text"]:focus,
     input[type="number"]:focus {
