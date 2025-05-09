@@ -42,9 +42,9 @@
     }
     .form-row {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       width: 100%;
     }
     label {
@@ -53,7 +53,7 @@
       font-weight: 500;
       width: 130px;
       text-align: right;
-      padding-right: 10px;
+      padding-right: 5px;
     }
     input[type="text"],
     input[type="number"] {
@@ -65,7 +65,6 @@
       font-size: 14px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
-      text-align: left;
     }
     input[type="text"]:focus,
     input[type="number"]:focus {
@@ -142,40 +141,25 @@
       color: #e53935;
     }
 
+    /* Ajustes para pantallas pequeñas */
     @media (max-width: 600px) {
-      .container {
-        padding: 20px;
-        margin: 10px;
-      }
-      h2 {
-        font-size: 20px;
-      }
       .form-row {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
+        flex-direction: row;  /* Mantener los elementos en la misma fila */
+        justify-content: space-between;  /* Espaciado entre las etiquetas y los inputs */
+        align-items: center;  /* Alineación centrada */
+        margin-bottom: 6px;
       }
-      .form-row label {
-        width: 120px;
-        font-size: 13px;
-        text-align: right;
-        padding-right: 10px;
+      
+      label {
+        width: 140px;  /* Asegurarse de que la etiqueta tenga un tamaño adecuado */
       }
+
       input[type="text"],
       input[type="number"] {
-        max-width: 150px;
-        font-size: 13px;
-      }
-      button {
-        padding: 8px 16px;
-        font-size: 13px;
-      }
-      .option-buttons {
-        gap: 8px;
-        flex-wrap: wrap;
+        width: calc(100% - 150px);  /* Ajustar el tamaño de los inputs en móviles */
       }
     }
+
     @media (max-width: 400px) {
       .container {
         padding: 15px;
@@ -200,7 +184,7 @@
         <input type="text" id="colegio" />
       </div>
       <div class="form-row">
-        <label for="facturado">Facturación:</label>
+        <label for="facturado">Facturado:</label>
         <input type="number" id="facturado" step="0.01" min="0" />
       </div>
       <div class="form-row">
@@ -257,10 +241,10 @@
         extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
       }
 
-      output.innerHTML = `
+      output.innerHTML = ` 
         <ul>
           <li>Colegio: <strong>${colegio}</strong></li>
-          <li>Facturación: <strong>${facturadoInput.value || '[Facturación]'}</strong>€</li>
+          <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
           <li>Separadores: <strong>${separadoresInput.value || '[Separadores]'}</strong></li>
           <li>Resultado: <strong>${resultadoInput.value || '[Resultado]'}</strong>€</li>
           <li>5% del resultado: <strong>${porcentajeInput.value || '[Porcentaje]'}</strong>€</li>
@@ -278,7 +262,7 @@
 
     function copyText() {
       const colegio = document.getElementById('colegio').value || '[Colegio]';
-      const facturado = facturadoInput.value || '[Facturación]';
+      const facturado = facturadoInput.value || '[Facturado]';
       const separadores = separadoresInput.value || '[Separadores]';
       const resultado = resultadoInput.value || '[Resultado]';
       const porcentaje = porcentajeInput.value || '[Porcentaje]';
@@ -290,7 +274,7 @@
         extraLine = '🎓 Destinado al bono del cole';
       }
 
-      const textToCopy = `Colegio: ${colegio}\nFacturación: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
+      const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
 
       if (navigator.clipboard) {
         navigator.clipboard.writeText(textToCopy).then(() => {
