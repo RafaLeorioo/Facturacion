@@ -72,9 +72,9 @@
             font-size: 24px;
             font-weight: 500;
         }
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             padding: 10px;
-            margin: 8px 0;
+            margin: 4px 0; /* Reducido de 8px a 4px */
             border: 1px solid #ddd;
             border-radius: 6px;
             width: 100%;
@@ -83,7 +83,7 @@
             box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
-        input[type="text"]:focus {
+        input[type="text"]:focus, input[type="number"]:focus {
             border-color: #4CAF50;
             outline: none;
         }
@@ -170,9 +170,10 @@
             h2 {
                 font-size: 20px;
             }
-            input[type="text"] {
+            input[type="text"], input[type="number"] {
                 max-width: 100%;
                 font-size: 13px;
+                margin: 2px 0; /* Reducido a 2px en móviles */
             }
             label {
                 font-size: 13px;
@@ -200,8 +201,9 @@
             h2 {
                 font-size: 18px;
             }
-            input[type="text"] {
+            input[type="text"], input[type="number"] {
                 padding: 8px;
+                margin: 2px 0;
             }
             .option-buttons {
                 flex-direction: column;
@@ -226,9 +228,9 @@
             <label for="colegio">Colegio:</label><br>
             <input type="text" id="colegio"><br>
             <label for="facturado">Ha facturado:</label><br>
-            <input type="text" id="facturado"><br>
+            <input type="number" id="facturado" step="0.01" min="0"><br>
             <label for="separadores">Separadores:</label><br>
-            <input type="text" id="separadores"><br>
+            <input type="number" id="separadores" step="1" min="0"><br>
             <label for="resultado">Resultado:</label><br>
             <input type="text" id="resultado" readonly><br>
             <label for="porcentaje">5%:</label><br>
@@ -257,10 +259,18 @@
         const errorMessage = document.getElementById('errorMessage');
         let selectedOption = null;
 
+        // Validar que solo se ingresen números en facturado y separadores
+        facturadoInput.addEventListener('input', () => {
+            facturadoInput.value = facturadoInput.value.replace(/[^0-9.]/g, '');
+        });
+        separadoresInput.addEventListener('input', () => {
+            separadoresInput.value = separadoresInput.value.replace(/[^0-9]/g, '');
+        });
+
         function updateOutput() {
             const colegio = document.getElementById('colegio').value || '[Colegio]';
-            let facturado = parseFloat(facturadoInput.value.replace(/[^0-9.]/g, '')) || 0;
-            let separadores = parseFloat(separadoresInput.value) || 0;
+            let facturado = parseFloat(facturadoInput.value) || 0;
+            let separadores = parseInt(separadoresInput.value) || 0;
 
             // Calcular resultado (facturado - separadores)
             let resultado = facturado - separadores;
