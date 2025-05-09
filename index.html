@@ -1,322 +1,320 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Facturación</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%);
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            transition: transform 0.3s ease;
-        }
-        .container:hover {
-            transform: translateY(-5px);
-        }
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 500;
-        }
-        input[type="text"], input[type="number"] {
-            padding: 10px;
-            margin: 2px 0; /* Márgenes reducidos */
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            width: 100%;
-            max-width: 200px;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease;
-        }
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        input[readonly] {
-            background-color: #f9f9f9;
-            cursor: not-allowed;
-        }
-        label {
-            color: #555;
-            font-size: 14px;
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .output {
-            margin-top: 25px;
-            font-size: 16px;
-            text-align: left;
-            color: #333;
-        }
-        .output ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .output li {
-            margin: 8px 0;
-            font-size: 15px;
-        }
-        button {
-            margin: 12px 6px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            touch-action: manipulation;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-        .option-buttons {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 12px;
-            margin: 15px 0;
-        }
-        .option-buttons button {
-            background-color: #2196F3;
-        }
-        .option-buttons button:hover {
-            background-color: #1976D2;
-        }
-        .extra-line.dana {
-            color: #1E90FF; /* Azul para DANA */
-            font-style: italic;
-        }
-        .extra-line.cole {
-            color: #228B22; /* Verde para Cole */
-            font-style: italic;
-        }
-        .copied, .error {
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-        .copied {
-            color: #4CAF50;
-        }
-        .error {
-            color: #e53935;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            h2 {
-                font-size: 20px;
-            }
-            input[type="text"], input[type="number"] {
-                max-width: 100%;
-                font-size: 13px;
-                margin: 1px 0; /* Márgenes aún más reducidos en móviles */
-            }
-            label {
-                font-size: 13px;
-            }
-            .output {
-                font-size: 14px;
-            }
-            .output li {
-                font-size: 13px;
-            }
-            button {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-            .option-buttons {
-                flex-direction: row;
-                gap: 8px;
-                flex-wrap: wrap;
-            }
-        }
-        @media (max-width: 400px) {
-            .container {
-                padding: 15px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-            input[type="text"], input[type="number"] {
-                padding: 8px;
-                margin: 1px 0;
-            }
-            .option-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .option-buttons button {
-                width: 100%;
-                max-width: 150px;
-            }
-            button {
-                width: 100%;
-                max-width: 150px;
-            }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario de Facturación</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%);
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      transition: transform 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-5px);
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      margin: 2px 0; /* Márgenes reducidos */
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 200px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #4caf50;
+      outline: none;
+    }
+    input[readonly] {
+      background-color: #f9f9f9;
+      cursor: not-allowed;
+    }
+    label {
+      color: #555;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .output {
+      margin-top: 25px;
+      font-size: 16px;
+      text-align: left;
+      color: #333;
+    }
+    .output ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .output li {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+    button {
+      margin: 12px 6px;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      touch-action: manipulation;
+    }
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+    .option-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+      margin: 15px 0;
+      flex-wrap: wrap; /* Para que en pantallas pequeñas no se rompa */
+    }
+    .option-buttons button {
+      background-color: #2196f3;
+    }
+    .option-buttons button:hover {
+      background-color: #1976d2;
+    }
+    .extra-line.dana {
+      color: #1e90ff;
+      font-style: italic;
+    }
+    .extra-line.cole {
+      color: #228b22;
+      font-style: italic;
+    }
+    .copied,
+    .error {
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+    .copied {
+      color: #4caf50;
+    }
+    .error {
+      color: #e53935;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      input[type="text"],
+      input[type="number"] {
+        max-width: 100%;
+        font-size: 13px;
+        margin: 1px 0;
+      }
+      label {
+        font-size: 13px;
+      }
+      .output {
+        font-size: 14px;
+      }
+      .output li {
+        font-size: 13px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+      .option-buttons {
+        gap: 8px;
+      }
+    }
+    @media (max-width: 400px) {
+      .container {
+        padding: 15px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      input[type="text"],
+      input[type="number"] {
+        padding: 8px;
+        margin: 1px 0;
+      }
+      .option-buttons button {
+        max-width: 150px;
+      }
+      button {
+        max-width: 150px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container">
-        <h2>Formulario de Facturación</h2>
-        <form id="facturaForm">
-            <label for="colegio">Colegio:</label><br>
-            <input type="text" id="colegio"><br>
-            <label for="facturado">Ha facturado:</label><br>
-            <input type="number" id="facturado" step="0.01" min="0"><br>
-            <label for="separadores">Separadores:</label><br>
-            <input type="number" id="separadores" step="1" min="0"><br>
-            <label for="resultado">Resultado:</label><br>
-            <input type="text" id="resultado" readonly><br>
-            <label for="porcentaje">5%:</label><br>
-            <input type="text" id="porcentaje" readonly><br>
-        </form>
-        <div class="option-buttons">
-            <button onclick="selectOption('dana')">Dana</button>
-            <button onclick="selectOption('cole')">Cole</button>
-        </div>
-        <div class="output" id="output">
-            Introduce los datos en los campos para ver el resultado.
-        </div>
-        <button onclick="copyText()">Copiar Texto</button>
-        <div class="copied" id="copiedMessage">¡Texto copiado!</div>
-        <div class="error" id="errorMessage">Error al copiar el texto.</div>
+  <div class="container">
+    <h2>Formulario de Facturación</h2>
+    <form id="facturaForm">
+      <label for="colegio">Colegio:</label><br />
+      <input type="text" id="colegio" /><br />
+      <label for="facturado">Ha facturado:</label><br />
+      <input type="number" id="facturado" step="0.01" min="0" /><br />
+      <label for="separadores">Separadores:</label><br />
+      <input type="number" id="separadores" step="1" min="0" /><br />
+      <label for="resultado">Resultado:</label><br />
+      <input type="text" id="resultado" readonly /><br />
+      <label for="porcentaje">5%:</label><br />
+      <input type="text" id="porcentaje" readonly /><br />
+    </form>
+    <div class="option-buttons">
+      <button onclick="selectOption('dana')">Dana</button>
+      <button onclick="selectOption('cole')">Cole</button>
     </div>
+    <div class="output" id="output">
+      Introduce los datos en los campos para ver el resultado.
+    </div>
+    <button onclick="copyText()">Copiar Texto</button>
+    <div class="copied" id="copiedMessage">¡Texto copiado!</div>
+    <div class="error" id="errorMessage">Error al copiar el texto.</div>
+  </div>
 
-    <script>
-        const form = document.getElementById('facturaForm');
-        const output = document.getElementById('output');
-        const facturadoInput = document.getElementById('facturado');
-        const separadoresInput = document.getElementById('separadores');
-        const resultadoInput = document.getElementById('resultado');
-        const porcentajeInput = document.getElementById('porcentaje');
-        const copiedMessage = document.getElementById('copiedMessage');
-        const errorMessage = document.getElementById('errorMessage');
-        let selectedOption = null;
+  <script>
+    const form = document.getElementById('facturaForm');
+    const output = document.getElementById('output');
+    const facturadoInput = document.getElementById('facturado');
+    const separadoresInput = document.getElementById('separadores');
+    const resultadoInput = document.getElementById('resultado');
+    const porcentajeInput = document.getElementById('porcentaje');
+    const copiedMessage = document.getElementById('copiedMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    let selectedOption = null;
 
-        facturadoInput.addEventListener('input', () => {
-            facturadoInput.value = facturadoInput.value.replace(/[^0-9.]/g, '');
+    facturadoInput.addEventListener('input', () => {
+      facturadoInput.value = facturadoInput.value.replace(/[^0-9.]/g, '');
+    });
+    separadoresInput.addEventListener('input', () => {
+      separadoresInput.value = separadoresInput.value.replace(/[^0-9]/g, '');
+    });
+
+    function updateOutput() {
+      const colegio = document.getElementById('colegio').value || '[Colegio]';
+      let facturado = parseFloat(facturadoInput.value) || 0;
+      let separadores = parseInt(separadoresInput.value) || 0;
+
+      let resultado = facturado - separadores;
+      resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
+
+      let porcentaje = resultado * 0.05;
+      porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
+
+      let extraLine = '';
+      if (selectedOption === 'dana') {
+        extraLine = '<li class="extra-line dana">💧 Donado a colegios afectados por DANA</li>';
+      } else if (selectedOption === 'cole') {
+        extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
+      }
+
+      output.innerHTML = `
+        <ul>
+          <li>Colegio: <strong>${colegio}</strong></li>
+          <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
+          <li>Separadores: <strong>${separadoresInput.value || '[Separadores]'}</strong></li>
+          <li>Resultado: <strong>${resultadoInput.value || '[Resultado]'}</strong>€</li>
+          <li>5% del resultado: <strong>${porcentajeInput.value || '[Porcentaje]'}</strong>€</li>
+          ${extraLine}
+        </ul>
+      `;
+    }
+
+    form.addEventListener('input', updateOutput);
+
+    function selectOption(option) {
+      selectedOption = option;
+      updateOutput();
+    }
+
+    function copyText() {
+      const colegio = document.getElementById('colegio').value || '[Colegio]';
+      const facturado = facturadoInput.value || '[Facturado]';
+      const separadores = separadoresInput.value || '[Separadores]';
+      const resultado = resultadoInput.value || '[Resultado]';
+      const porcentaje = porcentajeInput.value || '[Porcentaje]';
+
+      let extraLine = '';
+      if (selectedOption === 'dana') {
+        extraLine = '💧 Donado a colegios afectados por DANA';
+      } else if (selectedOption === 'cole') {
+        extraLine = '🎓 Destinado al bono del cole';
+      }
+
+      const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          showMessage(copiedMessage);
+        }).catch(err => {
+          console.error('Error al copiar con navigator.clipboard: ', err);
+          fallbackCopyText(textToCopy);
         });
-        separadoresInput.addEventListener('input', () => {
-            separadoresInput.value = separadoresInput.value.replace(/[^0-9]/g, '');
-        });
+      } else {
+        fallbackCopyText(textToCopy);
+      }
+    }
 
-        function updateOutput() {
-            const colegio = document.getElementById('colegio').value || '[Colegio]';
-            let facturado = parseFloat(facturadoInput.value) || 0;
-            let separadores = parseInt(separadoresInput.value) || 0;
+    function fallbackCopyText(text) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showMessage(copiedMessage);
+      } catch (err) {
+        console.error('Error al copiar con método alternativo: ', err);
+        showMessage(errorMessage);
+      }
+    }
 
-            let resultado = facturado - separadores;
-            resultadoInput.value = isNaN(resultado) ? '' : resultado.toFixed(2);
-
-            let porcentaje = resultado * 0.05;
-            porcentajeInput.value = isNaN(porcentaje) ? '' : porcentaje.toFixed(2);
-
-            let extraLine = '';
-            if (selectedOption === 'dana') {
-                extraLine = '<li class="extra-line dana">💧 Donado a colegios afectados por DANA</li>';
-            } else if (selectedOption === 'cole') {
-                extraLine = '<li class="extra-line cole">🎓 Destinado al bono del cole</li>';
-            }
-
-            output.innerHTML = `
-                <ul>
-                    <li>Colegio: <strong>${colegio}</strong></li>
-                    <li>Facturado: <strong>${facturadoInput.value || '[Facturado]'}</strong>€</li>
-                    <li>Separadores: <strong>${separadoresInput.value || '[Separadores]'}</strong></li>
-                    <li>Resultado: <strong>${resultadoInput.value || '[Resultado]'}</strong>€</li>
-                    <li>5% del resultado: <strong>${porcentajeInput.value || '[Porcentaje]'}</strong>€</li>
-                    ${extraLine}
-                </ul>
-            `;
-        }
-
-        form.addEventListener('input', updateOutput);
-
-        function selectOption(option) {
-            selectedOption = option;
-            updateOutput();
-        }
-
-        function copyText() {
-            const colegio = document.getElementById('colegio').value || '[Colegio]';
-            const facturado = facturadoInput.value || '[Facturado]';
-            const separadores = separadoresInput.value || '[Separadores]';
-            const resultado = resultadoInput.value || '[Resultado]';
-            const porcentaje = porcentajeInput.value || '[Porcentaje]';
-
-            let extraLine = '';
-            if (selectedOption === 'dana') {
-                extraLine = '💧 Donado a colegios afectados por DANA';
-            } else if (selectedOption === 'cole') {
-                extraLine = '🎓 Destinado al bono del cole';
-            }
-
-            const textToCopy = `Colegio: ${colegio}\nFacturado: ${facturado}€\nSeparadores: ${separadores}\nResultado: ${resultado}€\n5% del resultado: ${porcentaje}€${extraLine ? '\n' + extraLine : ''}`;
-
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    showMessage(copiedMessage);
-                }).catch(err => {
-                    console.error('Error al copiar con navigator.clipboard: ', err);
-                    fallbackCopyText(textToCopy);
-                });
-            } else {
-                fallbackCopyText(textToCopy);
-            }
-        }
-
-        function fallbackCopyText(text) {
-            try {
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                textArea.style.position = 'fixed';
-                textArea.style.opacity = '0';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showMessage(copiedMessage);
-            } catch (err) {
-                console.error('Error al copiar con método alternativo: ', err);
-                showMessage(errorMessage);
-            }
-        }
-
-        function showMessage(element) {
-            copiedMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            element.style.display = 'block';
-            setTimeout(() => {
-                element.style.display = 'none';
-            }, 2000);
-        }
-    </script>
+    function showMessage(element) {
+      copiedMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+      element.style.display = 'block';
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
