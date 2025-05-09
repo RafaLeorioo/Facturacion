@@ -11,6 +11,9 @@
       margin: 0;
       padding: 0;
       height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .container {
       background-color: #ffffff;
@@ -22,11 +25,11 @@
       max-width: 500px;
       width: 90%;
       margin: 0 auto;
-      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      height: auto; /* Cambiado a auto para adaptarse al contenido */
       transition: transform 0.3s ease;
     }
     .container:hover {
